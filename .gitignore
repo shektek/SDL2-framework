@@ -29,3 +29,15 @@
 *.exe
 *.out
 *.app
+
+# Stuff
+*.tlog
+*.log
+*.lastbuildstate
+*.ilk
+*.pdb
+*.idb
+*.ipch
+*.db
+*.filters
+*.user
