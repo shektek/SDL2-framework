@@ -1,0 +1,29 @@
+﻿  CellTest.cpp
+  ImageCache.cpp
+  RenderSDL.cpp
+  SDLHost.cpp
+  Generating Code...
+ImageCache.obj : error LNK2019: unresolved external symbol _SDL_FreeSurface referenced in function "public: void __thiscall ImageCache::Clear(void)" (?Clear@ImageCache@@QAEXXZ)
+ImageCache.obj : error LNK2019: unresolved external symbol _IMG_Load referenced in function "public: struct SDL_Surface * __thiscall ImageCache::GetImage(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?GetImage@ImageCache@@QAEPAUSDL_Surface@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_CreateRenderer referenced in function "public: __thiscall RenderSDL::RenderSDL(struct SDL_Window *,int,int)" (??0RenderSDL@@QAE@PAUSDL_Window@@HH@Z)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_CreateTextureFromSurface referenced in function "public: struct SDL_Texture * __thiscall RenderSDL::GetTexture(struct SDL_Surface *)" (?GetTexture@RenderSDL@@QAEPAUSDL_Texture@@PAUSDL_Surface@@@Z)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_SetRenderDrawColor referenced in function "public: void __thiscall RenderSDL::StartRender(double)" (?StartRender@RenderSDL@@QAEXN@Z)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_SetRenderDrawBlendMode referenced in function "public: void __thiscall RenderSDL::StartRender(double)" (?StartRender@RenderSDL@@QAEXN@Z)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_RenderClear referenced in function "public: void __thiscall RenderSDL::StartRender(double)" (?StartRender@RenderSDL@@QAEXN@Z)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_RenderDrawRect referenced in function "public: void __thiscall RenderSDL::RenderBorders(void)" (?RenderBorders@RenderSDL@@QAEXXZ)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_RenderPresent referenced in function "public: void __thiscall RenderSDL::FinishRender(void)" (?FinishRender@RenderSDL@@QAEXXZ)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_DestroyTexture referenced in function "private: void __thiscall RenderSDL::ClearTextures(void)" (?ClearTextures@RenderSDL@@AAEXXZ)
+RenderSDL.obj : error LNK2019: unresolved external symbol _SDL_DestroyRenderer referenced in function "public: virtual __thiscall RenderSDL::~RenderSDL(void)" (??1RenderSDL@@UAE@XZ)
+RenderSDL.obj : error LNK2019: unresolved external symbol _IMG_Init referenced in function "public: __thiscall RenderSDL::RenderSDL(struct SDL_Window *,int,int)" (??0RenderSDL@@QAE@PAUSDL_Window@@HH@Z)
+RenderSDL.obj : error LNK2019: unresolved external symbol _IMG_Quit referenced in function "public: virtual __thiscall RenderSDL::~RenderSDL(void)" (??1RenderSDL@@UAE@XZ)
+SDLHost.obj : error LNK2019: unresolved external symbol _SDL_CreateWindow referenced in function "public: virtual bool __thiscall SDLHost::Init(int,char * *)" (?Init@SDLHost@@UAE_NHPAPAD@Z)
+SDLHost.obj : error LNK2019: unresolved external symbol _SDL_DestroyWindow referenced in function "public: virtual void __thiscall SDLHost::Quit(void)" (?Quit@SDLHost@@UAEXXZ)
+SDLHost.obj : error LNK2019: unresolved external symbol _SDL_GetMouseState referenced in function "public: virtual void __thiscall SDLHost::Exec(void)" (?Exec@SDLHost@@UAEXXZ)
+SDLHost.obj : error LNK2019: unresolved external symbol _SDL_PollEvent referenced in function "private: bool __thiscall SDLHost::HandleEvents(void)" (?HandleEvents@SDLHost@@AAE_NXZ)
+SDLHost.obj : error LNK2019: unresolved external symbol _SDL_GetTicks referenced in function "public: virtual void __thiscall SDLHost::Exec(void)" (?Exec@SDLHost@@UAEXXZ)
+SDLHost.obj : error LNK2019: unresolved external symbol _SDL_Init referenced in function "public: virtual bool __thiscall SDLHost::Init(int,char * *)" (?Init@SDLHost@@UAE_NHPAPAD@Z)
+MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol _main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+lib\x64\SDL2.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+lib\x64\SDL2main.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+lib\x64\SDL2_image.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+D:\dev\CellTest\Debug\CellTest.exe : fatal error LNK1120: 20 unresolved externals

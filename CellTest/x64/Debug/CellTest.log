@@ -1,0 +1,9 @@
+﻿  CellTest.cpp
+  RenderSDL.cpp
+D:\dev\CellTest\CellTest\RenderSDL.cpp(85,105): warning C4244: 'argument': conversion from 'short' to 'Uint8', possible loss of data
+D:\dev\CellTest\CellTest\RenderSDL.cpp(85,87): warning C4244: 'argument': conversion from 'short' to 'Uint8', possible loss of data
+D:\dev\CellTest\CellTest\RenderSDL.cpp(85,69): warning C4244: 'argument': conversion from 'short' to 'Uint8', possible loss of data
+  SDLHost.cpp
+  Generating Code...
+D:\dev\CellTest\CellTest\RenderSDL.cpp(85,51): warning C4244: 'argument': conversion from 'short' to 'Uint8', possible loss of data
+  CellTest.vcxproj -> D:\dev\CellTest\x64\Debug\CellTest.exe
