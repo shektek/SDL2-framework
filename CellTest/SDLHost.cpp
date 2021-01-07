@@ -16,8 +16,8 @@ bool SDLHost::Init(int argc, char** argv)
 	_running = (SDL_Init(SDL_INIT_EVERYTHING) == 0);
 	int width = 800;
 	int height = 600;
-	_window = SDL_CreateWindow(argv[0], 100, 100, width, height, 0);
-	_renderSdl = new RenderSDL(_window, width, height);
+	_window = std::shared_ptr<SDL_Window>(SDL_CreateWindow(argv[0], 100, 100, width, height, 0), SDL_DestroyWindow);
+	_renderSdl = std::make_shared<RenderSDL>(_window, width, height);
 
 	return _running;
 }
@@ -81,5 +81,4 @@ void SDLHost::Exec()
 
 void SDLHost::Quit()
 {
-	SDL_DestroyWindow(_window);
 }

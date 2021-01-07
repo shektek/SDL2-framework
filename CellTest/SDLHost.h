@@ -1,6 +1,7 @@
 #ifndef SDLHOST_H
 #define SDLHOST_H
 
+#include <memory>
 #include "AppHost.h"
 #include "RenderSDL.h"
 
@@ -8,8 +9,8 @@ class SDLHost : public AppHost
 {
 	private:
 		bool _running;
-		RenderSDL* _renderSdl;
-		SDL_Window* _window;
+		std::shared_ptr<RenderSDL> _renderSdl;
+		std::shared_ptr<SDL_Window> _window;
 		int _mapWidth;
 		int _mapHeight;
 

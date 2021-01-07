@@ -1,7 +1,8 @@
 #include "RenderSDL.h"
 #include <cstring>
+#include <iostream>
 
-RenderSDL::RenderSDL(SDL_Window* win, int windowWidth, int windowHeight)
+RenderSDL::RenderSDL(std::shared_ptr<SDL_Window> win, int windowWidth, int windowHeight)
 {
 	_xGridSpacing = 0;
 	_yGridSpacing = 0;
@@ -21,35 +22,27 @@ RenderSDL::RenderSDL(SDL_Window* win, int windowWidth, int windowHeight)
 	_viewportOriginX = windowOriginX + _borderWidth;
 	_viewportOriginY = windowOriginY + _borderHeight;
 	
-	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
+	_renderer = std::shared_ptr<SDL_Renderer>(SDL_CreateRenderer(_window.get(), -1, SDL_RENDERER_ACCELERATED), SDL_DestroyRenderer);
 
 	_borderColour[0] = 128;
 	_borderColour[1] = 128;
 	_borderColour[2] = 128;
 	_borderColour[3] = 255;
-
-	//char str[256] = { 0 };
-	//sprintf(str, "%s%s", imagesDir, battleBgImg);
-	//_backgroundSurface = _images.GetImage(str);
-	//_backgroundTexture = SDL_CreateTextureFromSurface(_renderer, _backgroundSurface);
 }
 
 RenderSDL::~RenderSDL()
 {
 	_images.Clear();
 	ClearTextures();
-	//SDL_DestroyTexture(_backgroundTexture);
-	SDL_DestroyRenderer(_renderer);
-
 	IMG_Quit();
 }
 
-SDL_Texture* RenderSDL::GetTexture(SDL_Surface* surface)
+std::shared_ptr<SDL_Texture> RenderSDL::GetTexture(std::shared_ptr<SDL_Surface> surface)
 {
-	std::map<SDL_Surface*, SDL_Texture*>::iterator it = _loadedTextures.find(surface);
+	std::map<std::shared_ptr<SDL_Surface>, std::shared_ptr<SDL_Texture>>::iterator it = _loadedTextures.find(surface);
 	if (it == _loadedTextures.end())
 	{
-		SDL_Texture* t = SDL_CreateTextureFromSurface(_renderer, surface);
+		std::shared_ptr<SDL_Texture> t = std::shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(_renderer.get(), surface.get()), SDL_DestroyTexture);
 		it = _loadedTextures.insert(it, std::make_pair(surface, t));
 	}
 	return it->second;
@@ -57,21 +50,15 @@ SDL_Texture* RenderSDL::GetTexture(SDL_Surface* surface)
 
 void RenderSDL::ClearTextures()
 {
-	for (std::map<SDL_Surface*, SDL_Texture*>::iterator it = _loadedTextures.begin();
-		it != _loadedTextures.end(); it++)
-	{
-		SDL_DestroyTexture(it->second);
-	}
-
 	_loadedTextures.clear();
 }
 
 void RenderSDL::StartRender(double frameDelta)
 {
 	_frameDelta = frameDelta;
-	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(_renderer);
-	SDL_SetRenderDrawBlendMode(_renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(_renderer.get());
+	SDL_SetRenderDrawBlendMode(_renderer.get(), SDL_BLENDMODE_BLEND);
 }
 
 void RenderSDL::RenderBorders()
@@ -82,12 +69,12 @@ void RenderSDL::RenderBorders()
 	SDL_Rect leftrect{ 0, _borderHeight, _borderWidth, _windowHeight - _borderHeight * 2 };
 	SDL_Rect rightrect{ _windowWidth - _borderWidth, _borderHeight, _borderWidth, _windowHeight - _borderHeight * 2 };
 
-	SDL_SetRenderDrawColor(_renderer, _borderColour[0], _borderColour[1], _borderColour[2], _borderColour[3]);
+	SDL_SetRenderDrawColor(_renderer.get(), _borderColour[0], _borderColour[1], _borderColour[2], _borderColour[3]);
 
-	SDL_RenderDrawRect(_renderer, &toprect);
-	SDL_RenderDrawRect(_renderer, &bottomrect);
-	SDL_RenderDrawRect(_renderer, &leftrect);
-	SDL_RenderDrawRect(_renderer, &rightrect);
+	SDL_RenderDrawRect(_renderer.get(), &toprect);
+	SDL_RenderDrawRect(_renderer.get(), &bottomrect);
+	SDL_RenderDrawRect(_renderer.get(), &leftrect);
+	SDL_RenderDrawRect(_renderer.get(), &rightrect);
 
 	//use this for textured borders
 	//char buf[256] = { 0 };
@@ -111,5 +98,5 @@ void RenderSDL::RenderBorders()
 
 void RenderSDL::FinishRender()
 {
-	SDL_RenderPresent(_renderer);
+	SDL_RenderPresent(_renderer.get());
 }

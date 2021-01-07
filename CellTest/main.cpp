@@ -1,6 +1,3 @@
-// CellTest.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -17,7 +14,7 @@ int main(int argc, char **argv)
 {
 	srand((unsigned)time(0));
 
-	SDLHost* app = new HOST_TYPE();
+	std::shared_ptr<SDLHost> app = std::make_shared<HOST_TYPE>();
 
 	if (app->Init(argc, argv))
 	{
@@ -25,8 +22,6 @@ int main(int argc, char **argv)
 	}
 
 	app->Quit();
-
-	delete app;
 
 	return 0;
 }

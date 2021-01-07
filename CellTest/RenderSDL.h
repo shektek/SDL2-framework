@@ -6,6 +6,7 @@
 #pragma comment(lib, "lib/x64/SDL2_image.lib")
 
 #include <map>
+#include <memory>
 #include "include/SDL2/SDL.h"
 #include "include/SDL2/SDL_image.h"
 #include "ImageCache.h"
@@ -28,19 +29,19 @@ private:
 	int _yGridSpacing;
 
 	double _frameDelta;
-	SDL_Renderer* _renderer;
-	SDL_Window* _window;
-	SDL_Surface* _backgroundSurface;
-	SDL_Texture* _backgroundTexture;
+	std::shared_ptr<SDL_Renderer> _renderer;
+	std::shared_ptr<SDL_Window> _window;
+	std::shared_ptr<SDL_Surface> _backgroundSurface;
+	std::shared_ptr<SDL_Texture> _backgroundTexture;
 	ImageCache _images;
-	std::map<SDL_Surface*, SDL_Texture*> _loadedTextures;
+	std::map<std::shared_ptr<SDL_Surface>, std::shared_ptr<SDL_Texture>> _loadedTextures;
 
 	short _borderColour[4];
 
 	void ClearTextures();
 
 public:
-	RenderSDL(SDL_Window* win, int windowWidth, int windowHeight);
+	RenderSDL(std::shared_ptr<SDL_Window> win, int windowWidth, int windowHeight);
 	virtual ~RenderSDL();
 
 	void StartRender(double frameDelta);
@@ -50,9 +51,9 @@ public:
 
 	void FinishRender();
 
-	SDL_Texture* GetTexture(SDL_Surface* surface);
+	std::shared_ptr<SDL_Texture> GetTexture(std::shared_ptr<SDL_Surface> surface);
 
-	SDL_Renderer* GetRenderer() { return _renderer; } //temp
+	std::shared_ptr<SDL_Renderer> GetRenderer() { return _renderer; } //temp
 };
 
 #endif

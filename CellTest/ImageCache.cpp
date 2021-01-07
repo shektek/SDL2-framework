@@ -5,12 +5,12 @@ ImageCache::~ImageCache()
 	Clear();
 }
 
-SDL_Surface* ImageCache::GetImage(std::string filename)
+std::shared_ptr<SDL_Surface> ImageCache::GetImage(std::string filename)
 {
-	std::map<std::string, SDL_Surface*>::iterator it = _cache.find(filename);
+	std::map<std::string, std::shared_ptr<SDL_Surface>>::iterator it = _cache.find(filename);
 	if (it == _cache.end())
 	{
-		SDL_Surface* s = IMG_Load(filename.c_str());
+		std::shared_ptr<SDL_Surface> s = std::shared_ptr<SDL_Surface>(IMG_Load(filename.c_str()), SDL_FreeSurface);
 		it = _cache.insert(it, std::make_pair(filename, s));
 	}
 	return it->second;
@@ -18,11 +18,5 @@ SDL_Surface* ImageCache::GetImage(std::string filename)
 
 void ImageCache::Clear()
 {
-	for (std::map<std::string, SDL_Surface*>::iterator it = _cache.begin();
-		it != _cache.end(); it++)
-	{
-		SDL_FreeSurface(it->second);
-	}
-
 	_cache.clear();
 }
